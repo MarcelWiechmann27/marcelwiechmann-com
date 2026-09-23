@@ -5,7 +5,7 @@
 - `datenschutz.html` – Datenschutzerklärung
 - `impressum.html` – Impressum
 - `vercel.json` – sorgt für saubere URLs (z. B. /datenschutz statt /datenschutz.html)
-- `api/contact.js` – Serverless-Funktion, die das Kontaktformular über Resend verschickt
+- `api/contact.js` – Serverless-Funktion, die das Kontaktformular über Resend verschickt 
 
 ## Kontaktformular / Resend einrichten
 Das Formular ruft jetzt `/api/contact` per fetch auf (kein mailto mehr, öffnet also kein E-Mail-Programm beim Besucher).
