@@ -737,7 +737,12 @@ let spyTicking=false;
 function updateActiveNav(){
   const anchor=head.offsetHeight+20;
   let current=secs[0];
-  for(const sec of secs){ if(sec.getBoundingClientRect().top-anchor<=0) current=sec; }
+  const nearBottom=innerHeight+scrollY>=document.documentElement.scrollHeight-4;
+  if(nearBottom){
+    current=secs[secs.length-1];
+  }else{
+    for(const sec of secs){ if(sec.getBoundingClientRect().top-anchor<=0) current=sec; }
+  }
   links.forEach(l=>l.classList.toggle('on',l.getAttribute('href')==='#'+current.id));
   spyTicking=false;
 }
