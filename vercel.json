@@ -1,4 +1,16 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/7tage", "destination": "/", "permanent": true },
+    { "source": "/7tage/:path*", "destination": "/", "permanent": true },
+    { "source": "/Branding", "destination": "/", "permanent": true },
+    { "source": "/Branding/:path*", "destination": "/", "permanent": true },
+    { "source": "/branding", "destination": "/", "permanent": true },
+    { "source": "/branding/:path*", "destination": "/", "permanent": true },
+    { "source": "/dvm", "destination": "/", "permanent": true },
+    { "source": "/dvm/:path*", "destination": "/", "permanent": true },
+    { "source": "/checkliste", "destination": "/", "permanent": true },
+    { "source": "/checkliste/:path*", "destination": "/", "permanent": true }
+  ]
 }
