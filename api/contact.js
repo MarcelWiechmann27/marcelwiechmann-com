@@ -8,7 +8,22 @@ module.exports = async (req, res) => {
   }
 
   try {
-    const { name, email, telefon, themen, nachricht } = req.body || {};
+    const { name, email, telefon, themen, nachricht, firma, _ts } = req.body || {};
+
+    // Honeypot: verstecktes Feld, das nur Bots ausfüllen. Ist es gefüllt, stillschweigend abbrechen.
+    if (firma && String(firma).trim() !== '') {
+      res.status(200).json({ ok: true });
+      return;
+    }
+
+    // Zeit-Check: echte Menschen brauchen mindestens ein paar Sekunden, um das Formular auszufüllen.
+    // Bots senden meist sofort nach dem Laden der Seite ab.
+    const submittedAt = Date.now();
+    const loadedAt = Number(_ts);
+    if (!loadedAt || Number.isNaN(loadedAt) || submittedAt - loadedAt < 3000) {
+      res.status(200).json({ ok: true });
+      return;
+    }
 
     if (!name || !email || !nachricht) {
       res.status(400).json({ error: 'Bitte Name, E-Mail und Nachricht ausfüllen.' });
