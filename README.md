@@ -1,7 +1,7 @@
 # marcelwiechmann.com – Deploy-Paket für Vercel
 
 ## Enthalten
-- `index.html`, `datenschutz.html`, `impressum.html` – deine Seite (Startseite um Menüpunkt und Button "Webseiten-Check" ergänzt, Datenschutz um einen Abschnitt zum Check erweitert)
+- `index.html`, `datenschutz.html`, `impressum.html` – deine Seite (Stand von GitHub, ergänzt um Menüpunkt, Button und Datenschutz-Abschnitt zum Webseiten-Check; DE/EN-Umschalter bleibt erhalten)
 - `webseitencheck.html` – die Seite unter /webseitencheck, `wc-assets/` – Logo und Fotos dafür
 - `api/check.js` + `lib/` – die Server-Funktion hinter dem Check (Prüfung, KI-Auswertung, Versand über Resend)
 - `vercel.json` – saubere URLs, Weiterleitungen (/websitecheck, /website-check, /webseiten-check, /Webseitencheck → /webseitencheck) und 60 Sekunden Laufzeit für die Funktion
