@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Webseiten-Check · Marcel Wiechmann</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,800;1,900&family=Barlow:wght@400;500;600&family=Reenie+Beanie&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0b1730;--navy2:#12264a;--navy3:#0a1226;--paper:#f3f4f6;--paper2:#e9ebef;--ink:#0b1730;--red:#f5411f;--red-d:#c22c0e;--muted:#4b5468;--maxw:1240px;--hh:72px;
+--stars:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='44' height='44'><polygon fill='white' points='11.0,2.5 13.0,8.2 19.1,8.4 14.2,12.1 16.0,17.9 11.0,14.4 6.0,17.9 7.8,12.1 2.9,8.4 9.0,8.2'/><polygon fill='white' points='33.0,24.5 35.0,30.2 41.1,30.4 36.2,34.1 38.0,39.9 33.0,36.4 28.0,39.9 29.8,34.1 24.9,30.4 31.0,30.2'/></svg>");
+--noise:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n' x='0' y='0' width='100%' height='100%'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:100px;overflow-x:clip}
+body{font-family:'Barlow',system-ui,sans-serif;background:var(--navy);color:var(--ink);overflow-x:clip;-webkit-font-smoothing:antialiased;line-height:1.5}
+img{max-width:100%;display:block}a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,4vw,48px);position:relative;z-index:2}
+h1,h2,h3{font-family:'Barlow Condensed',Impact,sans-serif;text-transform:uppercase}
+h2{font-weight:900;font-size:clamp(34px,4.4vw,58px);line-height:.92}
+h2 em{font-style:normal;color:var(--red);display:block}
+.kicker{font-family:'Barlow Condensed';font-weight:700;font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:10px}
+.script{font-family:'Reenie Beanie',cursive;line-height:1;display:inline-block;position:relative}
+.script.u::after{content:'';position:absolute;left:0;right:14%;bottom:-8px;height:3px;background:var(--red);transform:rotate(-4deg)}
+:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:14px;padding:14px 28px;font-family:'Barlow Condensed';font-weight:800;font-size:19px;letter-spacing:.06em;text-transform:uppercase;background:var(--red);color:#fff;transform:skewX(-9deg);border:0;cursor:pointer;transition:background .25s,transform .25s,box-shadow .25s}
+.btn>*{transform:skewX(9deg)}.btn svg{width:22px;height:22px;transition:transform .25s}
+.btn:hover{background:var(--red-d);transform:skewX(-9deg) translateY(-2px);box-shadow:0 10px 26px rgba(245,65,31,.4)}
+.btn:hover svg{transform:translateX(5px)}
+.btn.block{width:100%}
+.btn.line{background:transparent;color:var(--ink);border:2px solid var(--ink);padding:10px 22px;font-size:16px}
+.btn.line:hover{background:var(--ink);color:#fff;box-shadow:none}
+/* header */
+header{position:fixed;inset:0 0 auto 0;height:var(--hh);z-index:100;background:var(--navy);border-bottom:1px solid rgba(255,255,255,.08)}
+.nav{height:var(--hh);display:flex;align-items:center;justify-content:space-between;gap:22px}
+.logo-img{height:44px;width:auto}
+.menu{display:flex;gap:clamp(16px,2.2vw,36px);font-family:'Barlow Condensed';font-weight:700;font-size:16px;letter-spacing:.09em;text-transform:uppercase;color:#fff}
+.menu a{position:relative;padding:6px 0}
+.menu a.on{color:var(--red)}.menu a.on::after{content:'';position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--red)}
+.nav-r{display:flex;align-items:center;gap:22px}
+.nav-r .btn{padding:11px 24px;font-size:18px}
+.backlink{font-family:'Barlow Condensed';font-weight:700;font-size:15px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.8);margin-right:auto;white-space:nowrap}.backlink:hover{color:var(--red)}
+.faq a{color:var(--red);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.who-copy a.tl{color:#fff;font-weight:500;text-decoration:underline;text-decoration-color:var(--red);text-decoration-thickness:2px;text-underline-offset:4px}.who-copy a.tl strong{font-weight:800}
+@media(max-width:520px){.backlink{font-size:13px}.logo-img{height:36px}}
+.tagstack{font-family:'Barlow Condensed';font-weight:600;font-size:11px;letter-spacing:.2em;text-transform:uppercase;line-height:1.4;color:rgba(255,255,255,.7);border-left:1px solid rgba(255,255,255,.18);padding-left:22px;transform:skewX(-8deg)}
+@media(max-width:900px){.menu,.tagstack{display:none}}
+/* bands */
+.band{position:relative;overflow:hidden}
+.navy{background:var(--navy);color:#fff}
+.navy::before{content:'';position:absolute;inset:0;background:radial-gradient(70% 90% at 18% 10%,rgba(40,80,150,.35),transparent 70%),radial-gradient(60% 80% at 90% 100%,rgba(245,65,31,.10),transparent 70%);pointer-events:none}
+.navy::after{content:'';position:absolute;inset:0;background:var(--noise);opacity:.5;pointer-events:none}
+.paper{background:var(--paper);color:var(--ink)}
+.paper::after{content:'';position:absolute;inset:0;background:var(--noise);opacity:.05;mix-blend-mode:multiply;pointer-events:none}
+.stars{position:absolute;pointer-events:none;background:var(--stars) 0 0/44px;opacity:.06;z-index:1;left:0;top:0;width:min(46%,640px);height:100%;-webkit-mask-image:linear-gradient(110deg,#000 25%,transparent 85%);mask-image:linear-gradient(110deg,#000 25%,transparent 85%)}
+.hide{display:none!important}
+/* hero */
+.hero{padding-top:var(--hh)}
+.hero-in{position:relative;min-height:600px;display:flex;align-items:center}
+.hero-photo{position:absolute;top:0;bottom:0;right:19%;width:42%;z-index:1;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 30%);mask-image:linear-gradient(90deg,transparent 0,#000 30%)}
+.hero-photo img{width:100%;height:100%;object-fit:cover;object-position:62% 22%}
+.hero-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 65%,rgba(11,23,48,.55))}
+.hero-sun{position:absolute;top:0;bottom:0;right:0;width:27%;z-index:2;clip-path:polygon(17% 0,100% 0,100% 100%,0 100%);background:#f3f4f6;overflow:hidden}
+.hero-sun .in{position:absolute;inset:0;clip-path:polygon(calc(17% + 8px) 0,100% 0,100% 100%,8px 100%);background:var(--navy)}
+.hero-sun img{width:100%;height:100%;object-fit:cover;object-position:50% 62%}
+.hero-sun .in::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(11,23,48,.82))}
+.hero-txt{position:relative;z-index:4;width:min(54%,640px);padding:44px 0 52px}
+.hero .kicker{color:rgba(255,255,255,.85);letter-spacing:.2em;font-weight:600}
+.hero h1{font-style:italic;font-weight:900;font-size:clamp(50px,7.4vw,112px);line-height:.86;margin:0 0 16px}
+.hero h1 span{display:block;background:linear-gradient(180deg,#fff 20%,#d3d8e2 62%,#fff);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 5px 0 rgba(0,0,0,.35))}
+.hero h1 em{display:block;font-style:italic;background:linear-gradient(180deg,#ff6a2a 15%,#f5411f 60%,#d02a0c);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 5px 0 rgba(0,0,0,.4))}
+.tag{font-family:'Barlow Condensed';font-weight:700;font-size:clamp(14px,1.4vw,20px);letter-spacing:.14em;text-transform:uppercase;color:#fff;padding-bottom:12px;margin-bottom:16px;position:relative;display:inline-block}
+.tag::after{content:'';position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--red)}
+p.lead{font-size:16px;line-height:1.6;color:rgba(255,255,255,.78);max-width:46ch;margin-bottom:22px}
+/* form */
+.fbox{position:relative;max-width:480px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);padding:22px;backdrop-filter:blur(4px)}
+.fbox .script{position:absolute;right:14px;top:-30px;font-size:34px;color:#fff;transform:rotate(-4deg)}
+.steps{display:flex;gap:6px;margin-bottom:16px}.dot{flex:1;height:4px;background:rgba(255,255,255,.2)}.dot.on{background:var(--red)}
+label.l{display:block;font-family:'Barlow Condensed';font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:14px;margin-bottom:6px;color:#fff}
+input{width:100%;background:var(--paper);border:0;padding:15px 14px;font:500 15px 'Barlow',sans-serif;color:var(--ink);border-radius:0}
+input::placeholder{color:#5c6478}
+.row{margin-bottom:14px}
+.chk{display:flex;gap:10px;align-items:flex-start;font-size:12px;color:rgba(255,255,255,.7);margin-bottom:16px}
+.chk input{width:18px;height:18px;flex:none;accent-color:#f5411f;padding:0;margin-top:2px}
+.fine{font-size:12px;color:rgba(255,255,255,.55);margin-top:12px}
+.perks{display:flex;gap:8px 22px;flex-wrap:wrap;margin-top:22px;font-family:'Barlow Condensed';font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:13px;color:rgba(255,255,255,.85)}
+.perks span::before{content:"★ ";color:var(--red)}
+@media(max-width:900px){.hero-photo,.hero-sun{display:none}.hero-txt{width:100%}.hero-in{min-height:0}}
+/* loading */
+.load{padding:calc(var(--hh) + 70px) 0 90px;text-align:center;min-height:90vh;position:relative;z-index:3}
+.spin{width:56px;height:56px;border:5px solid rgba(255,255,255,.15);border-top-color:var(--red);border-radius:50%;margin:0 auto 26px;animation:s 1s linear infinite}
+@keyframes s{to{transform:rotate(360deg)}}
+.load h2{font-size:clamp(34px,5vw,56px);margin-bottom:8px}
+.log{list-style:none;max-width:340px;margin:26px auto 0;text-align:left;font-family:'Barlow Condensed';font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:16px}
+.log li{padding:7px 0;opacity:.35;border-bottom:1px solid rgba(255,255,255,.12);transition:.3s}
+.log li.done{opacity:1}.log li.done::before{content:"★ ";color:var(--red)}
+/* result */
+#s-res{padding-top:var(--hh);background:var(--paper)}
+.pad{padding-block:44px}
+.note{border:2px dashed var(--red);background:#f5411f10;padding:10px 14px;font-size:13px;margin-bottom:22px}
+.tabs{display:flex;margin-bottom:22px}
+.tab{font-family:'Barlow Condensed';font-weight:800;letter-spacing:.1em;text-transform:uppercase;font-size:15px;background:none;border:2px solid var(--ink);padding:9px 20px;cursor:pointer;color:var(--ink)}
+.tab+.tab{border-left:0}.tab.on{background:var(--ink);color:#fff}
+.sband{display:grid;grid-template-columns:auto 1fr;background:var(--navy);color:#fff;position:relative;overflow:hidden}
+.sband::before{content:'';position:absolute;inset:0;background:var(--stars) 0 0/44px;opacity:.05}
+.score{padding:30px 44px;border-right:1px solid rgba(255,255,255,.14);text-align:center;position:relative}
+.score .num{font-family:'Barlow Condensed';font-weight:900;font-style:italic;font-size:clamp(76px,12vw,128px);line-height:.9;background:linear-gradient(180deg,#ff6a2a 15%,#f5411f 60%,#d02a0c);-webkit-background-clip:text;background-clip:text;color:transparent}
+.score .lbl{font-family:'Barlow Condensed';font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:14px;margin-top:6px}
+.verdict{padding:30px 34px;display:flex;flex-direction:column;justify-content:center;position:relative}
+.verdict h2{font-size:clamp(30px,4vw,48px)}
+.verdict p{margin:12px 0 0;opacity:.75;font-size:15px}
+@media(max-width:620px){.sband{grid-template-columns:1fr}.score{border-right:0;border-bottom:1px solid rgba(255,255,255,.14)}}
+.cats{background:#fff;border:1px solid rgba(11,23,48,.12);border-top:0}
+.cat{display:grid;grid-template-columns:1fr auto;gap:6px 14px;padding:18px 22px;border-top:1px solid rgba(11,23,48,.12)}
+.cat h3{font-weight:800;font-size:21px;letter-spacing:.04em;line-height:1.15}
+.cat p{grid-column:1/-1;margin:0;font-size:14.5px;color:var(--muted)}
+.pill{font-family:'Barlow Condensed';font-weight:800;letter-spacing:.1em;text-transform:uppercase;font-size:14px;padding:3px 12px;border:2px solid var(--ink);align-self:center;transform:skewX(-9deg)}
+.pill.g{background:var(--navy);color:#fff}.pill.r{background:var(--red);border-color:var(--red);color:#fff}
+.bar{grid-column:1/-1;height:7px;background:var(--paper2)}.bar i{display:block;height:100%;width:0;background:var(--red);transition:width 1s}
+.sec-h{margin:44px 0 14px}
+.lever{display:flex;gap:18px;padding:18px 0;border-top:1px solid rgba(11,23,48,.18)}.lever:last-child{border-bottom:1px solid rgba(11,23,48,.18)}
+.lever .n{font-family:'Barlow Condensed';font-weight:900;font-size:52px;line-height:.9;color:var(--red);min-width:36px}
+.lever b{font-family:'Barlow Condensed';font-weight:800;font-size:21px;letter-spacing:.04em;text-transform:uppercase}
+.lever div div{color:var(--muted);font-size:15px}
+.cta{margin-top:50px}
+.cta .wrap{display:grid;grid-template-columns:1.3fr 1fr;gap:30px;align-items:center;padding-block:52px;position:relative;z-index:3}
+.cta h2 em{display:block}
+.cta .script{font-size:36px;color:#fff;margin-top:14px;transform:rotate(-3deg)}
+.cta p{color:rgba(255,255,255,.8);margin-bottom:20px}
+@media(max-width:760px){.cta .wrap{grid-template-columns:1fr}}
+.mail{background:#dfe2e8;padding:18px}
+.mail .meta{font-size:12.5px;color:#444;margin-bottom:12px;line-height:1.6}
+.mail .body{background:#fff;max-width:560px;margin:0 auto;color:#111}
+.mail .top{background:var(--navy);padding:14px 22px}.mail .top img{height:42px}
+.mail .claimb{background:var(--red);color:#fff;padding:7px 22px;font-family:'Barlow Condensed';font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:14px}
+.mail .in{padding:22px;font-size:14.5px}
+.mail .sc{font-family:'Barlow Condensed';font-weight:900;font-style:italic;font-size:54px;color:var(--red);line-height:1}
+.mail ul{margin:8px 0 16px 18px}
+.mail .b{display:inline-block;background:var(--red);color:#fff;padding:12px 24px;font-family:'Barlow Condensed';font-weight:800;letter-spacing:.06em;text-transform:uppercase;font-size:17px;transform:skewX(-9deg)}
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:30px;border-top:1px solid rgba(11,23,48,.18)}
+.hw{padding:26px 24px 8px 0}.hw+.hw{border-left:1px solid rgba(11,23,48,.18);padding-left:24px}
+.hw b{font-family:'Barlow Condensed';font-weight:900;font-size:64px;line-height:.9;color:var(--red);display:block}
+.hw h3{font-weight:800;font-size:24px;margin:8px 0}.hw p{color:var(--muted);font-size:15px}
+@media(max-width:760px){.how{grid-template-columns:1fr}.hw+.hw{border-left:0;border-top:1px solid rgba(11,23,48,.18);padding-left:0}}
+.who{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.4fr);align-items:stretch;position:relative;z-index:3}
+.who-photo{position:relative;min-height:420px;clip-path:polygon(0 0,100% 0,88% 100%,0 100%)}
+.who-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:64% 30%}
+.who-copy{padding-block:54px;max-width:640px;margin:0}
+.who-copy .lead{max-width:52ch;margin-bottom:14px}
+.mstats{display:grid;grid-template-columns:repeat(4,auto);gap:10px 26px;margin-top:26px;justify-content:start}
+.mstats div{border-left:1px solid rgba(255,255,255,.2);padding-left:14px}.mstats div:first-child{border-left:0;padding-left:0}
+.mstats b{display:block;font-family:'Barlow Condensed';font-weight:900;font-size:clamp(30px,3.6vw,46px);line-height:1;color:var(--red)}
+.mstats span{display:block;font-family:'Barlow Condensed';font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;line-height:1.2;margin-top:4px}
+@media(max-width:800px){.who{grid-template-columns:1fr}.who-photo{min-height:340px;clip-path:polygon(0 0,100% 0,100% 92%,0 100%)}.mstats{grid-template-columns:repeat(2,auto)}.mstats div:nth-child(3){border-left:0;padding-left:0}}
+.faq{margin-top:26px;max-width:760px}
+details{border-top:1px solid rgba(11,23,48,.18);padding:16px 0}details:last-child{border-bottom:1px solid rgba(11,23,48,.18)}
+summary{cursor:pointer;font-family:'Barlow Condensed';font-weight:800;font-size:21px;letter-spacing:.04em;text-transform:uppercase;list-style:none;display:flex;justify-content:space-between;gap:14px}
+summary::after{content:'+';color:var(--red);font-size:26px;line-height:1}details[open] summary::after{content:'–'}
+summary::-webkit-details-marker{display:none}
+details p{color:var(--muted);margin:10px 0 0;max-width:60ch}
+.endcta{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;padding-block:50px;position:relative;z-index:3}
+footer{background:var(--navy3);color:#fff;border-top:1px solid rgba(255,255,255,.1);padding:34px 0;text-align:center;font-family:'Barlow Condensed';letter-spacing:.14em;text-transform:uppercase;font-size:13px}
+footer img{height:44px;margin:0 auto 12px}
+.chk span a{color:#fff;text-decoration:underline;text-underline-offset:3px}
+.err{background:#f5411f26;border:1px solid var(--red);color:#fff;padding:10px 14px;font-size:14px;margin:0 0 14px}
+.mailnote{background:#fff;border-left:4px solid var(--red);padding:12px 16px;font-size:14px;margin-bottom:22px;color:var(--ink)}
+.tab,.tabs,.note{display:none}
+@media(max-width:520px){.nav-r .btn{padding:9px 16px;font-size:15px;white-space:nowrap}.nav-r .btn svg{display:none}.cat h3{font-size:19px}}
+.pill{white-space:nowrap}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a href="/" class="logo"><img class="logo-img" src="/wc-assets/logo.png" alt="Marcel Wiechmann"></a>
+    <a href="/" class="backlink">← Zur Hauptseite</a>
+    <div class="nav-r">
+      <div class="tagstack">Strategie.<br>Marketing.<br>Marken.<br>Führung.</div>
+      <a href="#formtop" class="btn" id="navbtn"><span>Jetzt prüfen</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 12h17M14 5l7 7-7 7"/></svg></a>
+    </div>
+  </div>
+</header>
+
+<!-- STEP 1 -->
+<section id="s-form" class="band navy hero">
+  <i class="stars"></i>
+  <div class="hero-in">
+    <div class="hero-photo"><img src="/wc-assets/hero.jpg" alt="Marcel Wiechmann mit Cap und Sonnenbrille"></div>
+    <div class="wrap" style="width:100%">
+      <div class="hero-txt">
+        <div class="kicker">Kostenloser Check</div>
+        <h1><span>Webseiten</span><em>Check</em></h1>
+        <div class="tag">Klare Analyse. Direkter Plan. Echte Wirkung.</div>
+        <p class="lead">Überzeugt deine Webseite oder kostet sie dich Kunden? Ich prüfe Botschaft, Auftritt und Technik und schicke dir die drei größten Hebel per E-Mail.</p>
+        <div class="fbox" id="formtop">
+          <span class="script u">Dauert nur 2 Minuten.</span>
+          <div class="steps"><div class="dot on" id="d1"></div><div class="dot" id="d2"></div></div>
+          <form id="f">
+            <div id="p1">
+              <div class="row"><label class="l" for="firma">Wie heißt dein Unternehmen?</label><input id="firma" placeholder="z. B. Müller Tischlerei" autocomplete="organization"></div>
+              <button class="btn block" type="button" id="next"><span>Weiter</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 12h17M14 5l7 7-7 7"/></svg></button>
+            </div>
+            <div id="p2" class="hide">
+              <div class="row"><label class="l" for="url">Wie lautet deine Webseiten-Adresse?</label><input id="url" placeholder="www.deine-seite.de" autocomplete="url" required></div>
+              <div class="row"><label class="l" for="mail">Wohin soll der Bericht?</label><input id="mail" type="email" placeholder="du@firma.de" autocomplete="email" required></div>
+              <input type="text" id="hp" name="company_fax" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0">
+              <label class="chk"><input type="checkbox" id="c1" required><span>Ich möchte den Bericht per E-Mail erhalten und bin damit einverstanden, dass meine Angaben dafür verarbeitet werden. Details stehen in der <a href="/datenschutz" target="_blank">Datenschutzerklärung</a>.</span></label>
+              <label class="chk"><input type="checkbox" id="c2"><span>Optional: Marcel Wiechmann darf sich per E-Mail bei mir melden, um mein Ergebnis zu besprechen und mir passende Angebote zu machen. Jederzeit widerrufbar.</span></label>
+              <div class="err hide" id="err" role="alert"></div>
+              <button class="btn block" type="submit"><span>Webseite jetzt prüfen</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 12h17M14 5l7 7-7 7"/></svg></button>
+            </div>
+          </form>
+          <p class="fine">Kostenlos · keine Anmeldung · Ergebnis sofort hier und per E-Mail</p>
+        </div>
+        <div class="perks"><span>Botschaft</span><span>Design & Vertrauen</span><span>Technik & Tempo</span></div>
+      </div>
+    </div>
+    <div class="hero-sun"><div class="in"><img src="/wc-assets/sun.jpg" alt=""></div></div>
+  </div>
+</section>
+
+<div id="more">
+<!-- SO LÄUFT'S -->
+<section class="band paper">
+  <div class="wrap pad">
+    <div class="kicker">So läuft's</div>
+    <h2>In drei Schritten<em>zu deinem Bericht.</em></h2>
+    <div class="how">
+      <div class="hw"><b>1</b><h3>Adresse eingeben</h3><p>Firmenname, Webseite und E-Mail. Mehr brauche ich nicht.</p></div>
+      <div class="hw"><b>2</b><h3>Ich prüfe</h3><p>Technik und Tempo werden gemessen. Botschaft, Auftritt und Vertrauen bewerte ich mit KI-Unterstützung.</p></div>
+      <div class="hw"><b>3</b><h3>Bericht per E-Mail</h3><p>Dein Score, die Ampel pro Bereich und die drei größten Hebel, direkt umsetzbar.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- WER STECKT DAHINTER -->
+<section class="band navy">
+  <i class="stars"></i>
+  <div class="who">
+    <div class="who-photo"><img src="/wc-assets/about.jpg" alt="Marcel Wiechmann am Schreibtisch mit Cap"></div>
+    <div class="wrap who-copy">
+      <div class="kicker">Wer steckt dahinter</div>
+      <h2>Kein Berater<em>aus dem Lehrbuch.</em></h2>
+      <p class="lead">Seit über 15 Jahren bin ich Unternehmer. Ich habe Marken aufgebaut, Shops betrieben und digitale Geschäftsmodelle getestet. Manches hat funktioniert, manches nicht, und beides hat mir beigebracht, worauf es wirklich ankommt.</p>
+      <p class="lead">Heute schaue ich als externer Berater mit klarem Blick von außen auf deinen Auftritt. Ehrlich, konkret und ohne Fachchinesisch.</p>
+      <p style="margin:0"><a class="tl" href="/">Mehr über mich und meine Projekte auf <strong>MARCELWIECHMANN.com</strong> →</a></p>
+      <div class="mstats">
+        <div><b>15+</b><span>Jahre<br>Erfahrung</span></div>
+        <div><b>12+</b><span>Mio. €<br>Umsatz</span></div>
+        <div><b>100+</b><span>Projekte, Marken,<br>Kampagnen</span></div>
+        <div><b>130.000+</b><span>YouTube-<br>Follower</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FRAGEN -->
+<section class="band paper">
+  <div class="wrap pad faq-wrap">
+    <div class="kicker">Gut zu wissen</div>
+    <h2>Deine <em style="display:inline">Fragen.</em></h2>
+    <div class="faq">
+      <details><summary>Ist der Check wirklich kostenlos?</summary><p>Ja, wirklich. Kein Haken, kein Abo, keine Kreditkarte. Ich schaue mir gern an, wo Webseiten Kunden liegen lassen. Und manche haben danach Lust, mit mir drüber zu reden. Muss aber keiner.</p></details>
+      <details><summary>Muss ich danach etwas kaufen?</summary><p>Nein. Der Bericht gehört dir, auch wenn du dich nie wieder meldest. Du kannst alles selbst umsetzen oder deinem Webentwickler in die Hand drücken. Wenn du Hilfe willst, sagst du Bescheid, dann quatschen wir 15 Minuten. Ohne Verkaufsdruck, ich bin nicht der Typ für Drückerkolonne. Wer ich bin und was ich sonst so mache, siehst du auf <a href="/">marcelwiechmann.com</a>.</p></details>
+      <details><summary>Was passiert mit meinen Daten?</summary><p>Ich brauche deine E-Mail, damit der Bericht ankommt, und deine Webseiten-Adresse, damit ich sie prüfen kann. Mehr nicht. Ich nutze beides für den Bericht und, wenn du magst, für eine Rückmeldung von mir. Das ganze Kleingedruckte steht in der Datenschutzerklärung.</p></details>
+      <details><summary>Wer prüft meine Seite eigentlich?</summary><p>Technik und Ladezeit misst ein Tool, da gibt es nichts zu diskutieren. Botschaft, Auftritt und Vertrauen bewertet eine KI nach Kriterien, die ich aus über 15 Jahren Praxis zusammengestellt habe. Das ersetzt keinen persönlichen Blick von mir, aber für die großen Baustellen reicht es locker. Wenn du es genauer willst, schaue ich gern selbst drauf.</p></details>
+      <details><summary>Was, wenn meine Seite richtig schlecht abschneidet?</summary><p>Dann weißt du wenigstens, wo es klemmt, und das ist meistens schneller behoben, als man denkt. Der Score sagt etwas über die Seite, nicht über dein Geschäft. Fang einfach mit dem Hebel an, der am meisten bringt, nicht mit allem auf einmal. Und wenn du dabei Unterstützung willst oder einfach mal drüberschauen lassen magst: <a href="/#kontakt">Melde dich bei mir</a>. Ich schaue mir das gern mit dir an, ganz entspannt.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="band navy">
+  <i class="stars"></i>
+  <div class="wrap endcta">
+    <h2>Bereit für den <em style="display:inline">Check?</em></h2>
+    <a href="#formtop" class="btn"><span>Webseite jetzt prüfen</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 12h17M14 5l7 7-7 7"/></svg></a>
+  </div>
+</section>
+</div>
+
+<!-- STEP 2 -->
+<section id="s-load" class="band navy hide">
+  <i class="stars"></i>
+  <div class="wrap load">
+    <div class="spin"></div>
+    <h2>Ich prüfe <em style="display:inline">deine Webseite</em></h2>
+    <p style="opacity:.7">Das dauert etwa 20 bis 40 Sekunden.</p>
+    <ul class="log" id="log"><li>Seite wird geladen</li><li>Technik & Ladezeit gemessen</li><li>Mobile Darstellung geprüft</li><li>Botschaft & Angebot bewertet</li><li>Vertrauen & Kontaktwege geprüft</li><li>Bericht wird erstellt</li></ul>
+  </div>
+</section>
+
+<!-- STEP 3 -->
+<section id="s-res" class="hide">
+  <div class="wrap pad">
+    <div id="t-rep">
+      <div class="mailnote" id="mailnote"></div>
+      <div class="kicker">Ergebnis für <span id="rf"></span> · <span id="ru"></span></div>
+      <div class="sband">
+        <div class="score"><div class="num" id="sc">0</div><div class="lbl">von 100 Punkten</div></div>
+        <div class="verdict"><h2 id="rt"></h2><p>Bewertet nach Botschaft, Auftritt und Technik, automatisch gemessen und ausgewertet.</p></div>
+      </div>
+      <div class="cats" id="cats"></div>
+      <h2 class="sec-h">Deine 3 größten <em style="display:inline">Hebel</em></h2>
+      <div id="levers"></div>
+    </div>
+  </div>
+
+  <div class="band navy cta">
+    <i class="stars"></i>
+    <div class="wrap">
+      <div>
+        <div class="kicker">Nächster Schritt</div>
+        <h2>Neue oder optimierte <em>Webseite?</em></h2>
+        <span class="script u">Gute Seiten. Echte Anfragen.</span>
+      </div>
+      <div>
+        <p>Ich zeige dir in 15 Minuten, was bei deiner Seite am meisten bringt. Ehrlich, konkret, ohne Fachchinesisch.</p>
+        <a class="btn" href="/#kontakt"><span>Let's talk</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 12h17M14 5l7 7-7 7"/></svg></a>
+      </div>
+    </div>
+  </div>
+  <div class="wrap" style="padding-block:30px"><button class="btn line" id="again"><span>Weitere Webseite prüfen</span></button></div>
+</section>
+
+<footer><img src="/wc-assets/logo.png" alt="Marcel Wiechmann"><a href="/" style="display:block;margin-bottom:8px;color:var(--red)">← Zurück zu marcelwiechmann.com</a><a href="/impressum">Impressum</a> · <a href="/datenschutz">Datenschutz</a></footer>
+
+<script>
+const $=id=>document.getElementById(id);
+const esc=x=>String(x==null?'':x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const loaded=Date.now();let busy=false,tick=null;
+$('next').onclick=()=>{if(!$('firma').value.trim()){$('firma').focus();return}
+  $('p1').classList.add('hide');$('p2').classList.remove('hide');$('d2').classList.add('on');$('url').focus()};
+$('f').onsubmit=e=>{e.preventDefault();run()};
+
+function showForm(msg){
+  clearInterval(tick);busy=false;
+  $('s-load').classList.add('hide');$('s-form').classList.remove('hide');$('more').classList.remove('hide');
+  $('p1').classList.add('hide');$('p2').classList.remove('hide');$('d2').classList.add('on');
+  if(msg){$('err').textContent=msg;$('err').classList.remove('hide')}
+  $('formtop').scrollIntoView({block:'center'});
+}
+async function run(){
+  if(busy)return;busy=true;
+  $('err').classList.add('hide');
+  const payload={firma:$('firma').value.trim(),url:$('url').value.trim(),email:$('mail').value.trim(),consent:$('c1').checked,contactOk:$('c2').checked,hp:$('hp').value,t:Date.now()-loaded};
+  $('s-form').classList.add('hide');$('more').classList.add('hide');$('s-load').classList.remove('hide');window.scrollTo(0,0);
+  const lis=[...document.querySelectorAll('#log li')];lis.forEach(l=>l.classList.remove('done'));
+  let k=0;const started=Date.now();
+  tick=setInterval(()=>{if(k<lis.length-1)lis[k++].classList.add('done')},3500);
+  let data;
+  try{
+    const ctrl=new AbortController();const to=setTimeout(()=>ctrl.abort(),75000);
+    const res=await fetch('/api/check',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload),signal:ctrl.signal});
+    clearTimeout(to);
+    data=await res.json().catch(()=>({ok:false,error:'Der Server hat unerwartet geantwortet. Bitte versuch es noch einmal.'}));
+    if(!res.ok&&!data.error)data={ok:false,error:'Der Check ist gerade nicht erreichbar. Bitte versuch es gleich noch einmal.'};
+  }catch(e){
+    data={ok:false,error:e&&e.name==='AbortError'?'Das dauert länger als gewöhnlich. Bitte versuch es gleich noch einmal.':'Die Verbindung hat nicht geklappt. Bitte versuch es noch einmal.'};
+  }
+  if(!data.ok){showForm(data.error);return}
+  clearInterval(tick);lis.forEach(l=>l.classList.add('done'));
+  const wait=Math.max(0,3000-(Date.now()-started));
+  setTimeout(()=>{busy=false;render(data,payload)},wait);
+}
+function render(d,p){
+  const r=d.report;
+  $('s-load').classList.add('hide');$('s-res').classList.remove('hide');window.scrollTo(0,0);
+  $('rf').textContent=p.firma;$('ru').textContent=r.host;$('rt').textContent=r.verdict;
+  let n=0;const iv=setInterval(()=>{n+=2;if(n>=r.score){n=r.score;clearInterval(iv)}$('sc').textContent=n},18);
+  let note=d.mailSent?`Der Bericht ist auch per E-Mail an <b>${esc(p.email)}</b> unterwegs. Schau notfalls im Spam-Ordner nach.`:'Die E-Mail konnte ich gerade nicht senden. Mach dir am besten einen Screenshot von dieser Seite.';
+  if(!r.usedAi||!r.usedPsi)note+=' Hinweis: Einzelne Bereiche konnte ich diesmal nur grob einschätzen.';
+  $('mailnote').innerHTML=note;
+  const cls=v=>v>=75?'g':v>=55?'y':'r',lab=v=>v>=75?'Gut':v>=55?'Okay':'Schwach';
+  $('cats').innerHTML=r.cats.map(c=>`<div class="cat"><h3>${esc(c.name)}</h3><span class="pill ${cls(c.score)}">${lab(c.score)} · ${c.score}</span><div class="bar"><i data-w="${Number(c.score)||0}"></i></div><p>${esc(c.text)}${c.approx?' <em>(grobe Einschätzung)</em>':''}</p></div>`).join('');
+  setTimeout(()=>document.querySelectorAll('.bar i').forEach(b=>b.style.width=b.dataset.w+'%'),50);
+  $('levers').innerHTML=r.levers.map((l,i)=>`<div class="lever"><div class="n">${i+1}</div><div><b>${esc(l.name)}</b><div>${esc(l.text)}</div></div></div>`).join('');
+}
+$('again').onclick=()=>{
+  $('s-res').classList.add('hide');$('s-form').classList.remove('hide');$('more').classList.remove('hide');
+  $('p2').classList.add('hide');$('p1').classList.remove('hide');$('d2').classList.remove('on');
+  $('f').reset();$('err').classList.add('hide');window.scrollTo(0,0);
+};
+</script>
+</body>
+</html>
