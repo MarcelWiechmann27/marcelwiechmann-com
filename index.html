@@ -88,7 +88,7 @@ header.scrolled{box-shadow:0 8px 30px rgba(0,0,0,.5)}
 .menu a{position:relative;padding:6px 0;color:#fff;transition:color .2s}
 .menu a::after{content:'';position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--red);transition:width .25s}
 .menu a:hover,.menu a.on{color:var(--red)}
-.menu a.neu{display:flex;align-items:center;gap:8px}.menu a.neu i{font-style:normal;background:var(--red);color:#fff;font-size:11px;padding:1px 7px;letter-spacing:.1em;transform:skewX(-9deg)}
+.menu a{white-space:nowrap}.menu a.neu{display:inline-flex;align-items:center;gap:7px}.menu a.neu i{width:7px;height:7px;border-radius:50%;background:var(--red);font-size:0;flex:none;margin-top:-8px;box-shadow:0 0 0 3px rgba(245,65,31,.25)}.menu a.neu:hover i,.menu a.neu.on i{background:#fff}.nav-r .btn,.nav-r .btn span{white-space:nowrap}.nav{gap:16px}.menu{gap:clamp(14px,1.9vw,32px)}
 .menu a:hover::after,.menu a.on::after{width:100%}
 .nav-r{display:flex;align-items:center;gap:24px}
 .nav-r .btn{padding:11px 24px;font-size:18px}
@@ -335,6 +335,7 @@ footer{background:var(--navy3);color:#fff;position:relative;border-top:1px solid
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}html{scroll-behavior:auto}}
 
 /* ---------- Responsive ---------- */
+@media(max-width:1280px){.tagstack{display:none}}
 @media(max-width:1180px){
   .tagstack{display:none}
   .about-row{grid-template-columns:1fr 1fr}
