@@ -53,10 +53,13 @@ function createHandler(deps) {
       }
 
       const report = await analyze(urlObj, deps);
-      const siteUrl = env.SITE_URL || 'https://marcelwiechmann.com';
+      const diag = report.diag || {};
+      delete report.diag;
+      if (!report.usedAi || !report.usedPsi) console.warn('check degraded:', JSON.stringify(diag));
+      const siteUrl = env.SITE_URL || 'https://www.marcelwiechmann.com';
       const at = new Date(now).toLocaleString('de-DE', { timeZone: 'Europe/Berlin' });
       const userMail = buildUserMail({ firma, report, siteUrl });
-      const leadMail = buildLeadMail({ firma, url: urlObj.href, email, contactOk: b.contactOk === true, report, at });
+      const leadMail = buildLeadMail({ firma, url: urlObj.href, email, contactOk: b.contactOk === true, report, at, diag });
       const [mailSent] = await Promise.all([
         sendMail(deps, { to: email, ...userMail, replyTo: env.LEAD_TO || 'hello@marcelwiechmann.com' }),
         sendMail(deps, { to: env.LEAD_TO || 'hello@marcelwiechmann.com', ...leadMail, replyTo: email }),

@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Webseiten-Check · Marcel Wiechmann</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E%F0%9F%A7%A2%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 rx=%2718%27 fill=%27%230b1730%27/%3E%3Ctext x=%2750%25%27 y=%2758%25%27 font-size=%2760%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3E%F0%9F%A7%A2%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,800;1,900&family=Barlow:wght@400;500;600&family=Reenie+Beanie&display=swap" rel="stylesheet">
@@ -115,6 +117,8 @@ input::placeholder{color:#5c6478}
 .cat{display:grid;grid-template-columns:1fr auto;gap:6px 14px;padding:18px 22px;border-top:1px solid rgba(11,23,48,.12)}
 .cat h3{font-weight:800;font-size:21px;letter-spacing:.04em;line-height:1.15}
 .cat p{grid-column:1/-1;margin:0;font-size:14.5px;color:var(--muted)}
+.cat .cp span{display:block;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin-top:6px}.cp.bad span{color:var(--red)}.cp.ok span{color:var(--navy)}.cp.nx span{color:#d9560f}
+.method{margin:22px 0 0;padding:18px 22px;background:var(--paper2);font-size:14.5px;color:var(--muted)}.method h4{font-family:'Barlow Condensed';font-size:18px;letter-spacing:.06em;text-transform:uppercase;color:var(--red);margin-bottom:6px}.method p{margin:6px 0 0}.method b{color:var(--ink)}
 .pill{font-family:'Barlow Condensed';font-weight:800;letter-spacing:.1em;text-transform:uppercase;font-size:14px;padding:3px 12px;border:2px solid var(--ink);align-self:center;transform:skewX(-9deg)}
 .pill.g{background:var(--navy);color:#fff}.pill.r{background:var(--red);border-color:var(--red);color:#fff}
 .bar{grid-column:1/-1;height:7px;background:var(--paper2)}.bar i{display:block;height:100%;width:0;background:var(--red);transition:width 1s}
@@ -177,7 +181,7 @@ footer img{height:44px;margin:0 auto 12px}
     <a href="/" class="backlink">← Zur Hauptseite</a>
     <div class="nav-r">
       <div class="tagstack">Strategie.<br>Marketing.<br>Marken.<br>Führung.</div>
-      <a href="#formtop" class="btn" id="navbtn"><span>Jetzt prüfen</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 12h17M14 5l7 7-7 7"/></svg></a>
+      <a href="/#kontakt" class="btn" id="navbtn"><span>Kontakt aufnehmen</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 12h17M14 5l7 7-7 7"/></svg></a>
     </div>
   </div>
 </header>
@@ -274,7 +278,7 @@ footer img{height:44px;margin:0 auto 12px}
   <i class="stars"></i>
   <div class="wrap endcta">
     <h2>Bereit für den <em style="display:inline">Check?</em></h2>
-    <a href="#formtop" class="btn"><span>Webseite jetzt prüfen</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 12h17M14 5l7 7-7 7"/></svg></a>
+    <a href="/webseitencheck" class="btn" onclick="event.preventDefault();document.getElementById('formtop').scrollIntoView({behavior:'smooth',block:'center'})"><span>Webseite jetzt prüfen</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 12h17M14 5l7 7-7 7"/></svg></a>
   </div>
 </section>
 </div>
@@ -301,6 +305,7 @@ footer img{height:44px;margin:0 auto 12px}
         <div class="verdict"><h2 id="rt"></h2><p>Bewertet nach Botschaft, Design, Auftritt, Vertrauen und Technik, automatisch gemessen und ausgewertet.</p></div>
       </div>
       <div class="cats" id="cats"></div>
+      <div class="method"><h4>So habe ich geprüft</h4><div id="method"></div></div>
       <h2 class="sec-h">Deine 3 größten <em style="display:inline">Hebel</em></h2>
       <div id="levers"></div>
     </div>
@@ -363,17 +368,22 @@ async function run(){
   const wait=Math.max(0,3000-(Date.now()-started));
   setTimeout(()=>{busy=false;render(data,payload)},wait);
 }
+function catBody(c){
+  const b=(t,k,x)=>x?`<p class="cp ${k}"><span>${t}</span>${esc(x)}</p>`:'';
+  const h=b('Das bremst dich','bad',c.problem)+b('Das läuft gut','ok',c.stark)+b('Dein nächster Schritt','nx',(c.problem||c.score<85)?c.hebel:'');
+  return h||`<p>${esc(c.text)}</p>`;
+}
 function render(d,p){
   const r=d.report;
   $('s-load').classList.add('hide');$('s-res').classList.remove('hide');window.scrollTo(0,0);
   $('rf').textContent=p.firma;$('ru').textContent=r.host;$('rt').textContent=r.verdict;
   let n=0;const iv=setInterval(()=>{n+=2;if(n>=r.score){n=r.score;clearInterval(iv)}$('sc').textContent=n},18);
   let note=d.mailSent?`Der Bericht ist auch per E-Mail an <b>${esc(p.email)}</b> unterwegs. Schau notfalls im Spam-Ordner nach.`:'Die E-Mail konnte ich gerade nicht senden. Mach dir am besten einen Screenshot von dieser Seite.';
-  if(!r.usedAi||!r.usedPsi)note+=' Hinweis: Einzelne Bereiche konnte ich diesmal nur grob einschätzen.';
   $('mailnote').innerHTML=note;
   const cls=v=>v>=75?'g':v>=55?'y':'r',lab=v=>v>=75?'Gut':v>=55?'Okay':'Schwach';
-  $('cats').innerHTML=r.cats.map(c=>`<div class="cat"><h3>${esc(c.name)}</h3><span class="pill ${cls(c.score)}">${lab(c.score)} · ${c.score}</span><div class="bar"><i data-w="${Number(c.score)||0}"></i></div><p>${esc(c.text)}${c.approx?' <em>(grobe Einschätzung)</em>':''}</p></div>`).join('');
+  $('cats').innerHTML=r.cats.map(c=>`<div class="cat"><h3>${esc(c.name)}</h3><span class="pill ${cls(c.score)}">${lab(c.score)} · ${c.score}</span><div class="bar"><i data-w="${Number(c.score)||0}"></i></div>${catBody(c)}</div>`).join('');
   setTimeout(()=>document.querySelectorAll('.bar i').forEach(b=>b.style.width=b.dataset.w+'%'),50);
+  $('method').innerHTML=(r.method||[]).map(m=>`<p><b>${esc(m.name)}:</b> ${esc(m.text)}</p>`).join('');
   $('levers').innerHTML=r.levers.map((l,i)=>`<div class="lever"><div class="n">${i+1}</div><div><b>${esc(l.name)}</b><div>${esc(l.text)}</div></div></div>`).join('');
 }
 $('again').onclick=()=>{
