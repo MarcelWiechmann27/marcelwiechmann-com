@@ -1,10 +1,15 @@
-# marcelwiechmann.com – Deploy-Paket für Vercel
+# marcelwiechmann.com – komplettes Paket für GitHub und Vercel
 
-## Enthalten
-- `index.html`, `datenschutz.html`, `impressum.html` – deine Seite (Stand von GitHub, ergänzt um Menüpunkt, Button und Datenschutz-Abschnitt zum Webseiten-Check; DE/EN-Umschalter bleibt erhalten)
-- `webseitencheck.html` – die Seite unter /webseitencheck, `wc-assets/` – Logo und Fotos dafür
-- `api/check.js` + `lib/` – die Server-Funktion hinter dem Check (Prüfung, KI-Auswertung, Versand über Resend)
-- `vercel.json` – saubere URLs, Weiterleitungen (/websitecheck, /website-check, /webseiten-check, /Webseitencheck → /webseitencheck) und 60 Sekunden Laufzeit für die Funktion
+## Inhalt
+- `index.html` – die Startseite (DE/EN). Alle Bilder liegen jetzt als Dateien in `img/`, die Seite lädt dadurch deutlich schneller.
+- `webseitencheck.html` – die Seite unter /webseitencheck (jetzt für Google freigegeben, mit eigener Beschreibung und Vorschaubild)
+- `impressum.html`, `datenschutz.html` – Pflichtseiten (bewusst `noindex`)
+- `404.html` – eigene Fehlerseite
+- `api/check.js`, `api/contact.js`, `lib/` – Server-Funktionen (Webseiten-Check mit KI und PageSpeed, Kontaktformular, E-Mail über Resend)
+- `img/`, `wc-assets/` – Bilder; `og.jpg` – Vorschaubild für Social Media und Google
+- `favicon.ico`, `favicon.svg`, `favicon-16.png`, `favicon-32.png`, `apple-touch-icon.png`, `icon-192.png`, `icon-512.png`, `site.webmanifest` – Favicons
+- `sitemap.xml`, `robots.txt` – für Google
+- `vercel.json` – saubere URLs, Weiterleitungen, Sicherheits- und Cache-Header, 60 Sekunden Laufzeit für den Check
 
 ## Einrichtung (einmalig)
 1. **Resend:** Domain marcelwiechmann.com ist dort verifiziert (SPF/DKIM). Absender ist `check@marcelwiechmann.com`.

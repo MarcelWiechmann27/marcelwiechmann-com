@@ -25,8 +25,9 @@ module.exports = async (req, res) => {
       return;
     }
 
-    if (!name || !email || !nachricht) {
-      res.status(400).json({ error: 'Bitte Name, E-Mail und Nachricht ausfüllen.' });
+    const hatThemen = Array.isArray(themen) && themen.length > 0;
+    if (!name || !email || (!nachricht && !hatThemen)) {
+      res.status(400).json({ error: 'Bitte Name, E-Mail und ein Thema oder eine Nachricht angeben.' });
       return;
     }
 
@@ -44,7 +45,7 @@ module.exports = async (req, res) => {
         to: ['hello@marcelwiechmann.com'],
         reply_to: email,
         subject: `Anfrage über marcelwiechmann.com – ${name}`,
-        text: `Name: ${name}\nE-Mail: ${email}${telText}${themenText}\n\n${nachricht}`,
+        text: `Name: ${name}\nE-Mail: ${email}${telText}${themenText}\n\n${nachricht || '(keine Nachricht, nur Themenauswahl)'}`,
       }),
     });
 
