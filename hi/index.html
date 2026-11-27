@@ -37,6 +37,9 @@ h1 span{display:block;color:var(--or)}
 .ic-li svg{stroke:#2f9bff}
 .ic-yt svg{stroke:#ff2a2a}
 .ic-yt svg path{fill:#ff2a2a;stroke:#ff2a2a}
+.back{position:absolute;z-index:2;top:max(14px,env(safe-area-inset-top));left:16px;display:inline-flex;align-items:center;gap:8px;padding:9px 14px 9px 11px;border-radius:999px;background:var(--glass);border:1.5px solid rgba(255,106,0,.7);color:var(--wh);text-decoration:none;font-weight:600;font-size:13px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.back svg{width:16px;height:16px;stroke:var(--or);fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.back:active{transform:scale(.97)}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .grid .wide{grid-column:1/-1}
 .btn.yt{min-height:72px;font-size:18px;font-weight:900}
@@ -49,6 +52,7 @@ h1 span{display:block;color:var(--or)}
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="ig" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#feda75"/><stop offset=".3" stop-color="#fa7e1e"/><stop offset=".6" stop-color="#d62976"/><stop offset="1" stop-color="#962fbf"/></linearGradient></defs></svg>
 <div class="bg" aria-hidden="true"></div>
+<a class="back" href="https://marcelwiechmann.com"><svg viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Zurück zur Webseite</a>
 <main>
   <h1>Marcel<span>Wiechmann</span></h1>
   <p class="claim">Finding Potential.<span>Creating Value.</span></p>
